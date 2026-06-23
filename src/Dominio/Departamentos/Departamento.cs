@@ -5,6 +5,7 @@ namespace Dominio.Departamentos;
 
 public sealed class Departamento : Entidad
 {
+    // Constructor público que garantiza la integridad
     public Departamento(Guid id, Nombre nombre, Descripcion descripcion, Direccion direccion, Dinero precio) 
         : base(id)
     {
@@ -14,10 +15,11 @@ public sealed class Departamento : Entidad
         Precio = precio;
     }
 
-    private Departamento() { } // Requerido por EF Core
+    private Departamento() { }
 
-    public required Nombre Nombre { get; private set; }
-    public required Descripcion Descripcion { get; private set; }
-    public required Direccion Direccion { get; private set; }
-    public required Dinero Precio { get; private set; }
+    // Quitamos 'required' porque el constructor ya garantiza la inicialización
+    public Nombre Nombre { get; private set; }
+    public Descripcion Descripcion { get; private set; }
+    public Direccion Direccion { get; private set; }
+    public Dinero Precio { get; private set; }
 }
