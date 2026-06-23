@@ -1,23 +1,22 @@
-using Dominio.Departamentos;      // Para que reconozca IRepositorioDepartamentos
-using Infraestructura;            // Para que reconozca AddInfrastructure
-using Infraestructura.Data;       // Opcional, dependiendo de tu estructura
+using Aplicacion; // Nuevo using
+using Dominio.Departamentos;
+using Infraestructura;
+using Aplicacion.Departamentos.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura Aspire
 builder.AddServiceDefaults();
-
-// Registra tus servicios de infraestructura
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication(); // Registrar servicios de aplicacion
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// Tu endpoint de prueba
-app.MapGet("/departamentos", async (IRepositorioDepartamentos repo) =>
+// Endpoint que ahora usa el Handler de Aplicacion
+app.MapGet("/departamentos", async (ObtenerDepartamentosHandler handler) =>
 {
-    var departamentos = await repo.GetAllAsync();
+    var departamentos = await handler.Handle(new ObtenerDepartamentosQuery(), default);
     return Results.Ok(departamentos);
 });
 
