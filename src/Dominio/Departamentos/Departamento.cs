@@ -16,8 +16,8 @@ public sealed class Departamento : Entidad
 
     private Departamento() { } // Requerido por EF Core
 
-    public Nombre Nombre { get; private set; }
-    public Descripcion Descripcion { get; private set; }
-    public Direccion Direccion { get; private set; }
-    public Dinero Precio { get; private set; }
+    public required Nombre Nombre { get; private set; }
+    public required Descripcion Descripcion { get; private set; }
+    public required Direccion Direccion { get; private set; }
+    public required Dinero Precio { get; private set; }
 }
